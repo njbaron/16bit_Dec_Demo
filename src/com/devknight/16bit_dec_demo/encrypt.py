@@ -11,17 +11,16 @@ def getKeys(keyFileName, numberKeys = 8):
     return keys[:numberKeys]
 
 def encrypt(key, inString):
+    print("[LOG} Encrypt with key: " + chr(key))
     outString = bytearray()
+    inString = bytearray(inString)
 
-
-    print(len(inString))
     if len(inString) % 2:
-        inString = inString + '0'.encode()
-    print(len(inString))
+        inString.append(0x10)
 
     for i in range(0, len(inString)-1, 2):
-        outString.append(inString[i+1] ^ key)
-        outString.append(inString[i])
+        outString.append(inString[i+1])
+        outString.append(inString[i] ^ key)
 
     return outString
 
@@ -42,7 +41,6 @@ keyFile = os.path.join(THIS_FOLDER, sys.argv[1])
 inFile = os.path.join(THIS_FOLDER, sys.argv[2])
 keys = getKeys(keyFile)
 string = read(inFile)
-write(inFile+"-E", string)
 for i in range(0, len(keys)):
     string = encrypt(keys[i], string)
-write(inFile+"-E", string)
+write(inFile+"_e", string)

@@ -11,8 +11,17 @@ def getKeys(keyFileName, numberKeys = 8):
     return keys[:numberKeys]
 
 def decrypt(key, inString):
+    print("[LOG} Decrypt with key: " + chr(key))
     outString = bytearray()
-    print("hi")
+    inString = bytearray(inString)
+
+    for i in range(0, len(inString)-1, 2):
+        outString.append(inString[i+1] ^ key)
+        outString.append(inString[i])
+
+    if outString[len(outString)-1] == 0x10:
+        outString[len(outString) - 1] = int()
+
     return outString
 
 def read(file):
@@ -32,7 +41,6 @@ keyFile = os.path.join(THIS_FOLDER, sys.argv[1])
 inFile = os.path.join(THIS_FOLDER, sys.argv[2])
 keys = getKeys(keyFile)
 string = read(inFile)
-write(inFile+"-E", string)
 for i in range(len(keys)-1, -1, -1):
     string = decrypt(keys[i], string)
-write(inFile+"-E", string)
+write(inFile+"_d", string)
