@@ -4,7 +4,7 @@ import os
 def getKeys(keyFileName, numberKeys = 8):
     keys = read(keyFileName)
 
-    if(len(keys)>8):
+    if(len(keys)>numberKeys):
         print("[WARNING] Found more than " + numberKeys + " keys.")
         print("[NOTICE] Only using " + numberKeys + " keys.")
 
@@ -20,7 +20,7 @@ def decrypt(key, inString):
         outString.append(inString[i])
 
     if outString[len(outString)-1] == 0x10:
-        outString[len(outString) - 1] = int()
+        outString = outString[:-1]
 
     return outString
 
