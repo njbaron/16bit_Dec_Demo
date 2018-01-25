@@ -1,6 +1,8 @@
 import sys
 import os
 
+debug = False
+
 def getKeys(keyFileName, numberKeys = 8):
     keys = read(keyFileName)
 
@@ -25,17 +27,20 @@ def decrypt(key, inString):
     return outString
 
 def read(file):
+    print("[LOG] Reading file: " + file)
     f = open(file, "rb")
     retStr = f.read()
     f.close()
     return retStr
 
 def write(file, string):
+    print("[LOG] Writing file: " + file)
     f = open(file, "wb")
     f.write(string)
     f.close()
 
 
+print("--Welcome to 16bit DEC decrypter.--")
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 keyFile = os.path.join(THIS_FOLDER, sys.argv[1])
 inFile = os.path.join(THIS_FOLDER, sys.argv[2])
