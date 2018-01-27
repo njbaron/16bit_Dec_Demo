@@ -1,7 +1,7 @@
 ECE 456 Encryption/Decryption Lab 1
 By Nick Baron 830278807
 
-You need python3 installed!
+You need python installed!
 
 How to run Encryption:
     -Once encrypt.py and decrypt.py have been downloaded. Place both files into a folder along with the file that you wish to encrypt.
