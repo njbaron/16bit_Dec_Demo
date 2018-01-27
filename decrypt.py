@@ -12,10 +12,10 @@ debug = False
 
 def getKeys(keyFileName, numberKeys = 8):
     """
-
-    :param keyFileName:
-    :param numberKeys:
-    :return:
+    This functions retrieves keys from a file.
+    :param keyFileName: This is the filename that is supposed to contain the keys.
+    :param numberKeys: This is the number of keys that are being requested for encryption.
+    :return: This is a bytes array that contains the keys.
     """
     keys = read(keyFileName)
 
@@ -28,10 +28,10 @@ def getKeys(keyFileName, numberKeys = 8):
 
 def decrypt(key, inString):
     """
-
-    :param key:
-    :param inString:
-    :return:
+    This is the method that handles decryption for specific keys.
+    :param key: This is the 8-bit key that is being decrypted.
+    :param inString: This is the string that is to be encrypted.
+    :return: This is the decrypted string.
     """
     if debug:
         print("[LOG} Decrypt with key: " + chr(key))
@@ -42,7 +42,7 @@ def decrypt(key, inString):
         outString.append(inString[i+1] ^ key)
         outString.append(inString[i])
 
-    if outString[len(outString)-1] == 0x10:
+    if outString[len(outString)-1] == 0x80: # Is there a buffer? If so remove it.
         outString = outString[:-1]
 
     return outString
@@ -50,13 +50,13 @@ def decrypt(key, inString):
 
 def read(file):
     """
-
-    :param file:
-    :return:
+    This functions reads bytes arrays from the fiven file.
+    :param file: This is the file that is to be read from.
+    :return: This is the bytes array containing all the information from the file.
     """
     if debug:
         print("[LOG] Reading file: " + file)
-    f = open(file, "rb")
+    f = open(file, "rb") #read bytes
     retStr = f.read()
     f.close()
     return retStr
@@ -64,14 +64,14 @@ def read(file):
 
 def write(file, string):
     """
-
-    :param file:
-    :param string:
-    :return:
+    This functions writes bytes array back to a file.
+    :param file: This is the file name that is to be written to.
+    :param string: This is the information that is to be written to the file.
+    :return: Nothing useful.
     """
     if debug:
         print("[LOG] Writing file: " + file)
-    f = open(file, "wb")
+    f = open(file, "wb") # write bytes
     f.write(string)
     f.close()
 
