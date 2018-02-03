@@ -20,8 +20,14 @@ def getKeys(keyFileName, numberKeys = 8):
     keys = read(keyFileName)
 
     if len(keys) > numberKeys:
-        print("[WARNING] Found more than " + numberKeys + " keys.")
-        print("[NOTICE] Only using " + numberKeys + " keys.")
+        print("[WARNING] Found more than " + str(numberKeys) + " keys.")
+        print("[NOTICE] Using " + str(numberKeys) + " keys.")
+    elif len(keys) < numberKeys:
+        print("[WARNING] Found less than " + str(numberKeys) + " keys. This is making your encryption less secure!")
+        print("[NOTICE] Using " + str(len(keys)) + " keys.")
+    elif len(keys) == 0:
+        print("[ERROR] Key file found to be empty. Cannot continue.")
+        exit(1)
 
     return keys[:numberKeys]
 
@@ -33,6 +39,11 @@ def decrypt(key, inString):
     :param inString: This is the string that is to be encrypted.
     :return: This is the decrypted string.
     """
+
+    if len(inString) < 1:
+        print("[WARNING] String give to decrypt was found to be empty.")
+        return inString
+
     if debug:
         print("[LOG} Decrypt with key: " + chr(key))
     outString = bytearray()
@@ -77,6 +88,9 @@ def write(file, string):
 
 
 """Main Program"""
+if len(sys.arv) > 3 or len(sys.argv) < 2:
+    print("[ERROR] Incorrect arguments: Expecting \"python decrypt.py {-d} [key_file] [file]\"")
+    exit(1)
 if sys.argv[1] == "-d":
     debug = True
     i = 1

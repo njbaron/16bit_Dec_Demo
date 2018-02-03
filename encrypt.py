@@ -20,8 +20,14 @@ def getKeys(keyFileName, numberKeys = 8):
     keys = read(keyFileName)
 
     if len(keys) > numberKeys:
-        print("[WARNING] Found more than " + numberKeys + " keys.")
-        print("[NOTICE] Only using " + numberKeys + " keys.")
+        print("[WARNING] Found more than " + str(numberKeys) + " keys.")
+        print("[NOTICE] Using " + str(numberKeys) + " keys.")
+    elif len(keys) < numberKeys:
+        print("[WARNING] Found less than " + str(numberKeys) + " keys. This is making your encryption less secure!")
+        print("[NOTICE] Using " + str(len(keys)) + " keys.")
+    elif len(keys) == 0:
+        print("[ERROR] Key file found to be empty. Cannot continue.")
+        exit(1)
 
     return keys[:numberKeys]
 
@@ -33,6 +39,10 @@ def encrypt(key, inString):
     :param inString: This is the bytes array that is to be encrypted.
     :return: This is the encrypted bytes array.
     """
+    if len(inString) < 1:
+        print("[WARNING] String give to encrypt was found to be empty.")
+        return inString
+
     if debug:
         print("[LOG} Encrypt with key: " + chr(key))
     outString = bytearray()
@@ -77,7 +87,10 @@ def write(file, string):
 
 
 """Main Program"""
-if sys.argv[1] == "-d":
+if len(sys.arv) > 3 or len(sys.argv) < 2:
+    print("[ERROR] Incorrect arguments: Expecting \"python encrypt.py {-d} [key_file] [file]\"")
+    exit(1)
+elif sys.argv[1] == "-d":
     debug = True
     i = 1
 else:
