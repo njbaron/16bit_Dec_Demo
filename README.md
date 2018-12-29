@@ -1,8 +1,8 @@
 # 16bit_Dec_Demo
 This program encrypts and decrypts 16-bit (8-bit key) information with a simplified XOR DEC Cryptographic Method. (ECE 456)
 
-ECE 456 Encryption/Decryption Lab 1
-By Nick Baron 830278807
+Encryption/Decryption
+By Nick Baron
 
 You need python installed!
 
